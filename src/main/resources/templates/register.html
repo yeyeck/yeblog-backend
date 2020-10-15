@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title data-th-text="${blog.siteName}"></title>
+</head>
+<style>
+    .row {
+        width: 100%;
+    }
+    .bg-grey {
+        background: darkgrey;
+    }
+</style>
+<body>
+<div>
+    <div class="row">
+        <p lang="zh">尊敬的用户您好，感谢使用本站服务，您正在本站进行【<strong data-th-text="${action}"></strong>】操作，本次验证码为：</p>
+    </div>
+    <div class="row bg-grey">
+        <strong data-th-text="${code}"></strong>
+    </div>
+    <div class="row">
+        <p lang="zh">验证码有效期为<span data-th-text="${expire}"></span>分钟, 如果不是本人操作，请忽略本邮件</p>
+    </div>
+    <div>
+        <a data-th-href="${blog.domain}" data-th-text="${blog.siteName}">
+    </div>
+</div>
+</body>
+</html>
