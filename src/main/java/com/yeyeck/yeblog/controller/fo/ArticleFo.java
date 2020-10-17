@@ -37,7 +37,7 @@ public class ArticleFo {
 
     public Article toArticle() {
         Article article = new Article();
-        if (this.categoryId != -1) {
+        if (this.categoryId != null && this.categoryId > 0) {
             article.setCategoryId(this.categoryId);
         }
         article.setTitle(this.title);
