@@ -119,7 +119,7 @@ public interface ArticleMapper {
     @Select("SELECT `id`, `title` FROM `t_article` WHERE `status` = 1 ORDER BY views DESC LIMIT 0, 10")
     List<Article> getTop10();
 
-    @Select("SELECT SUM(`views`) FROM `t_article`")
+    @Select("SELECT COALESCE(SUM(`views`), 0) FROM `t_article`")
     int sumViews();
 
     @Update("UPDATE `t_article` SET `category_id` = NULL WHERE `category_id` = #{categoryId}")
