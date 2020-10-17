@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.yeyeck</groupId>
     <artifactId>yeblog</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <name>yeblog</name>
     <description>Demo project for Spring Boot</description>
 
