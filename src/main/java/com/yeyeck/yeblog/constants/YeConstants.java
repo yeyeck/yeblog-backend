@@ -13,7 +13,7 @@ public class YeConstants {
 
     // 评论状态
     public static final int COMMENT_STATUS_PASSED = 1;
-    public static final int COMMENT_STATUS_NOT_PASSED = 1;
+    public static final int COMMENT_STATUS_NOT_PASSED = 0;
 
     // 配置id
     public static final int ID_SETTING_BASIC = 1;

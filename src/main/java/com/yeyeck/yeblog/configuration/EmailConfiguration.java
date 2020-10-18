@@ -1,9 +1,7 @@
 package com.yeyeck.yeblog.configuration;
 
-import com.yeyeck.yeblog.constants.YeConstants;
 import com.yeyeck.yeblog.mapper.SettingsMapper;
 import com.yeyeck.yeblog.pojo.EmailSettings;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSender;

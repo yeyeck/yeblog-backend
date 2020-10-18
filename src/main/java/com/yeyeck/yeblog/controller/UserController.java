@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @PutMapping("/admin")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean updateAdmin(@Validated @RequestBody AdminFo adminVo) {
         return userService.updateAdmin(adminVo);
     }

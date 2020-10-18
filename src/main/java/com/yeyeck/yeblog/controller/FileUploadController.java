@@ -20,8 +20,6 @@ public class FileUploadController {
 
     private IStorageService storageService;
 
-
-
     @Autowired
     public void setStorageService( IStorageService storageService) {
         this.storageService = storageService;

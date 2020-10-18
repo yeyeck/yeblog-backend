@@ -3,13 +3,10 @@ package com.yeyeck.yeblog.controller;
 import com.yeyeck.yeblog.controller.fo.ArticleFo;
 import com.yeyeck.yeblog.controller.fo.StatusFo;
 import com.yeyeck.yeblog.controller.vo.ArticleVo;
-import com.yeyeck.yeblog.dao.IRedisDao;
 import com.yeyeck.yeblog.pojo.Article;
 import com.yeyeck.yeblog.pojo.Comment;
 import com.yeyeck.yeblog.service.IArticleService;
 import com.yeyeck.yeblog.service.Page;
-import com.yeyeck.yeblog.utils.KeyUtils;
-import com.yeyeck.yeblog.utils.RequestUtils;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
@@ -55,13 +52,13 @@ public class ArticleController {
     }
 
     @PostMapping("")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public boolean add(@Validated @RequestBody ArticleFo articleFo) {
         return articleService.add(articleFo);
     }
 
     @GetMapping("/md/{id}")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public Article getMd(@PathVariable("id") Integer id) {
         return articleService.getArticleMd(id);
     }
@@ -75,38 +72,38 @@ public class ArticleController {
     }
 
     @DeleteMapping("/{id}")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public boolean delete(@PathVariable("id") Integer id) {
         return articleService.deleteDraft(id);
     }
 
     @PutMapping("/status/{id}")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public boolean updateStatus(@PathVariable("id") Integer id, @Validated @RequestBody StatusFo statusFo) {
         return articleService.updateArticleStatus(id, statusFo.getStatus());
     }
 
     @PutMapping("/{id}")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public boolean update(@PathVariable("id") Integer id, @Validated @RequestBody ArticleFo articleFo) {
         return articleService.updateArticle(id, articleFo);
     }
 
     @PutMapping("/cache")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public boolean cache(@RequestBody ArticleFo articleFo) {
         articleService.cache(articleFo);
         return true;
     }
 
     @GetMapping("/cache")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public ArticleFo getCache() {
         return articleService.getCachedArticle();
     }
 
     @DeleteMapping("/cache")
-    @RequiresRoles(value={"author", "admin"}, logical = Logical.OR)
+    @RequiresAuthentication
     public boolean clearCache() {
         return articleService.clearCache();
     }
@@ -117,6 +114,7 @@ public class ArticleController {
     }
 
     @PatchMapping("/{id}/category/{categoryId}")
+    @RequiresAuthentication
     public boolean updateCategory(@PathVariable("id") Integer articleId, @PathVariable("categoryId") Integer categoryId) {
         return articleService.updateCategory(articleId, categoryId);
     }

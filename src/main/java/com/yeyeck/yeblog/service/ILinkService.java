@@ -1,6 +1,5 @@
 package com.yeyeck.yeblog.service;
 
-import com.yeyeck.yeblog.constants.LinkType;
 import com.yeyeck.yeblog.controller.fo.LinkFo;
 import com.yeyeck.yeblog.pojo.Link;
 

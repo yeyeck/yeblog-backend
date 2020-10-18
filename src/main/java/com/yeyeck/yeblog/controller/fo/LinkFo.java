@@ -1,6 +1,5 @@
 package com.yeyeck.yeblog.controller.fo;
 
-import com.yeyeck.yeblog.constants.LinkType;
 import com.yeyeck.yeblog.pojo.Link;
 import lombok.Data;
 

@@ -1,7 +1,6 @@
 package com.yeyeck.yeblog.service;
 
 import org.springframework.core.io.Resource;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.nio.file.Path;

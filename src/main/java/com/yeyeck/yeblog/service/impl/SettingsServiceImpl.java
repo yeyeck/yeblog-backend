@@ -10,7 +10,6 @@ import com.yeyeck.yeblog.mapper.LinkMapper;
 import com.yeyeck.yeblog.mapper.SettingsMapper;
 import com.yeyeck.yeblog.pojo.BlogSetting;
 import com.yeyeck.yeblog.pojo.EmailSettings;
-import com.yeyeck.yeblog.pojo.Link;
 import com.yeyeck.yeblog.pojo.Setting;
 import com.yeyeck.yeblog.service.ISettingsService;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,7 +17,6 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
-import java.util.List;
 import java.util.Properties;
 
 @Service
@@ -34,16 +32,13 @@ public class SettingsServiceImpl implements ISettingsService {
 
     private JavaMailSender javaMailSender;
 
-    private LinkMapper linkMapper;
-
     public SettingsServiceImpl(SettingsMapper settingsMapper, BlogSetting blogSetting, EmailSettings emailSettings,
-                               ObjectMapper objectMapper, JavaMailSender javaMailSender, LinkMapper linkMapper) {
+                               ObjectMapper objectMapper, JavaMailSender javaMailSender) {
         this.settingsMapper = settingsMapper;
         this.blogSetting = blogSetting;
         this.emailSettings = emailSettings;
         this.objectMapper = objectMapper;
         this.javaMailSender = javaMailSender;
-        this.linkMapper = linkMapper;
     }
 
     @Override

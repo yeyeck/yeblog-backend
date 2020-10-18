@@ -15,9 +15,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ShiroConfig {
 
-    private static final String SHIRO_HASH_TYPE = "MD5";
-
-    private static final int SHIRO_HASH_TIMES = 5;
     @Bean
     public Realm realm(CacheManager cacheManager, HashedCredentialsMatcher hashedCredentialsMatcher) {
         YeRealm realm = new YeRealm();

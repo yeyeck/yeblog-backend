@@ -47,12 +47,12 @@ public class CommentController {
     }
 
     @PostMapping("/delete/comments")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean deleteByIds (@RequestBody Batch<Integer> batch) {
         return commentService.deleteCommentByIds(batch.getObjects());
     }
     @PostMapping("/update/status")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean passCheckingByIds (@RequestBody Batch<Integer> batch) {
         return commentService.updateCommentStatus(batch.getObjects(), YeConstants.COMMENT_STATUS_PASSED);
     }

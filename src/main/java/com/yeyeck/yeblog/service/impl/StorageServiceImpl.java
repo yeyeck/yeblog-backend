@@ -2,14 +2,10 @@ package com.yeyeck.yeblog.service.impl;
 
 import com.yeyeck.yeblog.exception.StorageException;
 import com.yeyeck.yeblog.exception.StorageFileNotFoundException;
-import com.yeyeck.yeblog.mapper.UserMapper;
-import com.yeyeck.yeblog.pojo.User;
 import com.yeyeck.yeblog.service.IStorageService;
-import com.yeyeck.yeblog.utils.ShiroUtils;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -92,25 +88,6 @@ public class StorageServiceImpl implements IStorageService {
         String suffix = originalFileName.substring(originalFileName.lastIndexOf("."));
         filename = filename + suffix;
         return HEADER_URL + store(file, this.headerLocation, filename);
-//        // 2. 更新数据库
-//        int res = userMapper.updateHeader(currentUser.getId(), url);
-//        if(res < 1) {
-//            throw new RuntimeException("数据库错误");
-//        }
-        // 3. 删除当前的图片
-//        if (header != null && !DEFAULT_HEADER.equals(filename)) {
-//            Path temp = load(this.headerLocation, oldFile);
-//            try {
-//                Resource resource = new UrlResource(temp.toUri());
-//                if (resource.exists()) {
-//                    resource.getFile().delete();
-//                }
-//            } catch (MalformedURLException e) {
-//                e.printStackTrace();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
     }
 
     @Override

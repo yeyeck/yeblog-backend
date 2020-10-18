@@ -10,6 +10,7 @@ import com.yeyeck.yeblog.pojo.*;
 import com.yeyeck.yeblog.service.IArticleService;
 import com.yeyeck.yeblog.service.ILinkService;
 import com.yeyeck.yeblog.service.ISettingsService;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -56,62 +57,62 @@ public class SettingsController {
     }
 
     @GetMapping("/email")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public EmailSettings getEmailSettings() {
         return settingsService.getEmailSetting();
     }
 
 
     @PutMapping("/email")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean updateEmailSetting (@Validated @RequestBody EmailSettings emailSettings) {
         return settingsService.setEmailSetting(emailSettings);
     }
 
     @PutMapping("/blog")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean updateBlogSetting (@Validated @RequestBody BlogSettingFo blogSettingVo) {
         return settingsService.setBlogSetting(blogSettingVo);
     }
 
     @GetMapping("/links")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public List<Link> getLinks() {
         return linkService.getAll();
     }
 
     @GetMapping("/links/{type}")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public List<Link> getLinksByType(@PathVariable("type") String type) {
         return linkService.getLinkByType(type);
     }
 
     @PostMapping("/link")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public Link addLink(@Validated @RequestBody LinkFo linkFo) {
         return linkService.addLink(linkFo);
     }
 
     @PutMapping("/link/{id}")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean updateLink(@PathVariable("id") Integer id, @Validated @RequestBody LinkFo linkFo) {
         return linkService.updateLink(id, linkFo);
     }
 
     @DeleteMapping("/link/{id}")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean deleteLink(@PathVariable("id") Integer id) {
         return linkService.deleteLinkById(id);
     }
 
     @PostMapping("/delete/links")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean deleteByIds (@RequestBody Batch<Integer> batch) {
         return linkService.deleteLinkByIds(batch.getObjects());
     }
 
     @PatchMapping("/link/orderNum/{id}")
-    @RequiresRoles("admin")
+    @RequiresAuthentication
     public boolean setOrderNum(@PathVariable("id") Integer id, @Validated @RequestBody LinkOrderNumFo linkOrderNumFo) {
         return linkService.updateOrderNum(id, linkOrderNumFo.getOrderNum(), linkOrderNumFo.getType());
     }

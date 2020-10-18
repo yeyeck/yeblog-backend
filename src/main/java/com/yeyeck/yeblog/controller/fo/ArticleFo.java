@@ -2,7 +2,6 @@ package com.yeyeck.yeblog.controller.fo;
 
 import com.yeyeck.yeblog.pojo.Article;
 import com.yeyeck.yeblog.pojo.Label;
-import com.yeyeck.yeblog.utils.ShiroUtils;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;

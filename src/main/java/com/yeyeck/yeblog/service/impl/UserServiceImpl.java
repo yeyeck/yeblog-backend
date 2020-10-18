@@ -1,33 +1,20 @@
 package com.yeyeck.yeblog.service.impl;
 
-import com.yeyeck.yeblog.constants.EmailCodeEnum;
 import com.yeyeck.yeblog.constants.YeConstants;
 import com.yeyeck.yeblog.controller.fo.AdminFo;
-import com.yeyeck.yeblog.controller.fo.UserFo;
-import com.yeyeck.yeblog.dao.IEmailDao;
 import com.yeyeck.yeblog.dao.IRedisDao;
-import com.yeyeck.yeblog.exception.DataConflictException;
-import com.yeyeck.yeblog.exception.NoSuchDataException;
 import com.yeyeck.yeblog.exception.ParamException;
 import com.yeyeck.yeblog.mapper.UserMapper;
 import com.yeyeck.yeblog.pojo.BlogSetting;
 import com.yeyeck.yeblog.pojo.User;
 import com.yeyeck.yeblog.service.IUserService;
-import com.yeyeck.yeblog.utils.KeyUtils;
 import com.yeyeck.yeblog.utils.ShiroUtils;
 import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.TimeUnit;
-
 
 @Service
 public class UserServiceImpl implements IUserService {
-
-    private IEmailDao emailDao;
 
     private IRedisDao redisDao;
 
@@ -35,9 +22,7 @@ public class UserServiceImpl implements IUserService {
 
     private UserMapper userMapper;
 
-    public UserServiceImpl(IEmailDao emailDao, IRedisDao redisDao,
-                           BlogSetting blogSetting, UserMapper userMapper) {
-        this.emailDao = emailDao;
+    public UserServiceImpl(IRedisDao redisDao, BlogSetting blogSetting, UserMapper userMapper) {
         this.redisDao = redisDao;
         this.blogSetting = blogSetting;
         this.userMapper = userMapper;
@@ -71,20 +56,5 @@ public class UserServiceImpl implements IUserService {
         }
         currentUser.setUsername(user.getUsername());
         return true;
-    }
-
-    private void checkCode(String codeKey, Integer code) {
-        String value = redisDao.getString(codeKey);
-        if (value == null) {
-            throw  new ParamException("验证码不存在或已过期，请重新申请验证码");
-        }
-        if (!value.equals(String.valueOf(code))) {
-            throw new ParamException("验证码错误，请前往邮箱查看验证码");
-        }
-    }
-
-    private int generateCode() {
-        Random random = new Random();
-        return random.nextInt(899999) + 100000;
     }
 }

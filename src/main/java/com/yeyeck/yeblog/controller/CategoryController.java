@@ -5,8 +5,7 @@ import com.yeyeck.yeblog.controller.fo.Batch;
 import com.yeyeck.yeblog.controller.fo.CategoryFo;
 import com.yeyeck.yeblog.pojo.Category;
 import com.yeyeck.yeblog.service.ICategoryService;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,11 +22,13 @@ public class CategoryController {
     }
 
     @PostMapping("")
+    @RequiresAuthentication
     public Category add(@Validated @RequestBody CategoryFo categoryFo) {
         return categoryService.addCategory(categoryFo);
     }
 
     @PutMapping("/{id}")
+    @RequiresAuthentication
     public boolean updateCategory(@PathVariable("id") Integer id, @Validated @RequestBody CategoryFo categoryFo) {
         return categoryService.updateCategory(id, categoryFo.getName());
     }
@@ -38,11 +39,13 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{id}")
+    @RequiresAuthentication
     public boolean deleteCategory(@PathVariable("id") Integer id) {
         return categoryService.deleteById(id);
     }
 
     @PostMapping("/delete")
+    @RequiresAuthentication
     public boolean deleteByIds (@RequestBody Batch<Integer> ids) {
         return categoryService.deleteByIds(ids);
     }

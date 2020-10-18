@@ -3,7 +3,6 @@ package com.yeyeck.yeblog.controller.fo;
 import lombok.Data;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 
 
 @Data
