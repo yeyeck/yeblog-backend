@@ -17,12 +17,6 @@ public interface IRedisDao {
 
     <T> List<T> getList(String key);
 
-    void addString(String key, String value);
-
-    void addString(String key, String value, long expireTime, TimeUnit unit);
-
-    String getString(String key);
-
     Long hyperLogLogSize(String key);
 
     long hyperLogLogAdd(String key, String... values);

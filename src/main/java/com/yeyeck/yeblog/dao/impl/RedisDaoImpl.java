@@ -2,7 +2,6 @@ package com.yeyeck.yeblog.dao.impl;
 
 import com.yeyeck.yeblog.dao.IRedisDao;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,11 +13,8 @@ public class RedisDaoImpl implements IRedisDao {
 
     private RedisTemplate<String, Object> redisTemplate;
 
-    private StringRedisTemplate stringRedisTemplate;
-
-    public RedisDaoImpl(RedisTemplate<String, Object> redisTemplate, StringRedisTemplate stringRedisTemplate) {
+    public RedisDaoImpl(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-        this.stringRedisTemplate = stringRedisTemplate;
     }
 
     @Override
@@ -45,29 +41,15 @@ public class RedisDaoImpl implements IRedisDao {
         return (List<T>)redisTemplate.opsForList().range(key, 0, -1);
     }
 
-    @Override
-    public void addString(String key, String value) {
-        stringRedisTemplate.opsForValue().set(key, value);
-    }
-
-    @Override
-    public void addString(String key, String value, long expireTime, TimeUnit unit) {
-        stringRedisTemplate.opsForValue().set(key, value, expireTime, unit);
-    }
-
-    @Override
-    public String getString(String key) {
-        return stringRedisTemplate.opsForValue().get(key);
-    }
 
     @Override
     public Long hyperLogLogSize(String key) {
-        return stringRedisTemplate.opsForHyperLogLog().size(key);
+        return redisTemplate.opsForHyperLogLog().size(key);
     }
 
     @Override
     public long hyperLogLogAdd(String key, String... values) {
-        return stringRedisTemplate.opsForHyperLogLog().add(key, values);
+        return redisTemplate.opsForHyperLogLog().add(key, values);
     }
 
     @Override
