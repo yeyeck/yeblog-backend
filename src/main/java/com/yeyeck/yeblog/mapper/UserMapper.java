@@ -9,31 +9,16 @@ import org.apache.ibatis.annotations.Update;
 @Mapper
 public interface UserMapper {
 
-    @Select("SELECT * FROM `t_user` WHERE `username` = #{username}")
+    @Select("select * from t_user where username = #{username}")
     User findByUsername(String username);
 
-    @Insert("INSERT INTO `t_user`(`username`, `nickname`, `password`, `salt`, `role`, `create_time`, `update_time`)" +
-            "VALUES(#{username}, #{nickname}, #{password}, #{salt}, #{role}, NOW(), NOW())")
+    @Insert("insert into t_user(username, nickname, password, salt, role, create_time, update_time)" +
+            "values(#{username}, #{nickname}, #{password}, #{salt}, #{role}, now(), now())")
     int add(User user);
 
-    @Update("UPDATE `t_user` SET `nickname` = #{nickname}, `update_time` = NOW() WHERE `id` = #{id}")
+    @Update("update t_user set nickname = #{nickname}, update_time = now() where id = #{id}")
     int updateNickname(Integer id, String nickname);
 
-    @Update("UPDATE `t_user` SET `header` = #{header}, `update_time` = NOW() WHERE `id` = #{id}")
-    int updateHeader(Integer id, String header);
-
-    @Select("SELECT `nickname` FROM `t_user` WHERE `id` = #{id}")
-    String getNicknameById(Integer id);
-
-    @Select("SELECT * FROM `t_user` WHERE `id` = #{userId}")
-    User getById(int userId);
-
-    @Select("SELECT `header` FROM `t_user` WHERE `id` = #{id}")
-    String getHeaderById(Integer id);
-
-    @Update("UPDATE `t_user` SET `salt` = #{salt}, `password` = #{password}, `update_time` = NOW() WHERE `id` = #{id}")
-    int updatePassword(User user);
-
-    @Update("UPDATE `t_user` SET `username`= #{username},`salt` = #{salt}, `password` = #{password}, `update_time` = NOW() WHERE `id` = 1")
+    @Update("update t_user SET username= #{username},salt = #{salt}, password = #{password}, update_time = now() where id = 1")
     int updateAdmin(User user);
 }

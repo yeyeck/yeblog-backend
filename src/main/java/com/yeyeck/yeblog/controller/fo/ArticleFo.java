@@ -29,6 +29,8 @@ public class ArticleFo {
     @NotEmpty
     private String contentHtml;
 
+    private String keywords;
+
     private Integer categoryId;
 
     private List<Label> labels;
@@ -42,6 +44,7 @@ public class ArticleFo {
         article.setTitle(this.title);
         article.setStatus(this.status);
         article.setAbstractText(this.abstractText);
+        article.setKeywords(this.keywords);
         article.setContentMd(this.contentMd);
         article.setContentHtml(this.contentHtml);
         List<Label> labels = this.labels;

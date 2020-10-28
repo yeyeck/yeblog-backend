@@ -6,18 +6,18 @@ import org.apache.ibatis.annotations.*;
 @Mapper
 public interface ArticleContentMapper {
 
-    @Select("SELECT `md` FROM `t_article_content` WHERE `id` = #{id}")
+    @Select("select md from t_article_content where id = #{id}")
     String getMdById(Integer id);
 
-    @Select("SELECT `html` FROM `t_article_content` WHERE `id` = #{id}")
+    @Select("select html from t_article_content where id = #{id}")
     String getHtmlById(Integer id);
 
-    @Insert("INSERT INTO `t_article_content`(`id`, `md`, `html`) VALUES (#{id}, #{contentMd}, #{contentHtml})")
+    @Insert("insert into t_article_content(id, md, html) values (#{id}, #{contentMd}, #{contentHtml})")
     int addArticleContent(Article article);
 
-    @Delete("DELETE FROM `t_article_content` WHERE `id` = #{id}")
+    @Delete("delete from t_article_content where id = #{id}")
     void deleteByid(Integer id);
 
-    @Update("UPDATE `t_article_content` SET `md` = #{md}, `html` = #{html} WHERE `id` = #{id}")
+    @Update("update t_article_content set md = #{md}, html = #{html} where id = #{id}")
     int updateArticleContent(Integer id, String md, String html);
 }

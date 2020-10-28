@@ -13,6 +13,8 @@ public class Article extends BasePojo {
 
     private String abstractText;    // 摘要
 
+    private String keywords;    // SEO 关键字
+
     private String contentMd;    // 文章内容 MD格式
 
     private String contentHtml;    // 文章内容 HTML格式

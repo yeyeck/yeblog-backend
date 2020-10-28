@@ -9,21 +9,21 @@ import java.util.List;
 public interface LabelMapper {
 
 
-    @Insert("INSERT INTO `t_label`(`name`, `create_time`) VALUES (#{name}, NOW())")
+    @Insert("insert into t_label(name, create_time) values (#{name}, NOW())")
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", before = false, keyProperty = "id", resultType = int.class)
     int add(Label label);
 
-    @Delete("DELETE FROM `t_label` WHERE `id` = #{id}")
+    @Delete("delete from t_label where id = #{id}")
     int deleteById(Integer id);
 
-    @Select("SELECT * FROM `t_label` WHERE `id` = #{id}")
+    @Select("select * from t_label shere id = #{id}")
     Label getById(Integer id);
 
-    @Select("SELECT t_label.`id`, t_label.`name` FROM `t_article_label` INNER JOIN `t_label` " +
-            "ON t_article_label.`article_id` = #{articleId} AND t_article_label.`label_id` = t_label.`id`  ")
+    @Select("select t_label.id, t_label.name from t_article_label inner join t_label " +
+            "on t_article_label.article_id = #{articleId} and t_article_label.label_id = t_label.id  ")
     List<Label> getByArticleId(Integer articleId);
 
-    @Select({"SELECT * from `t_label` WHERE `name` = #{name}", })
+    @Select({"select * from t_label where name = #{name}", })
     Label getByName(String name);
 
 

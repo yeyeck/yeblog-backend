@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper {
 
-    @Select("SELECT `id`, `title`, `views`, `category_id`, `create_time`, `update_time` FROM `t_article` WHERE `status` = #{status}")
+    @Select("select id, title, views, category_id, create_time, update_time from t_article where status = #{status}")
     @Results(value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "id", property = "countComments", javaType = Integer.class, one = @One(select = "com.yeyeck.yeblog.mapper.CommentMapper.countCommentsByArticleId")),
@@ -18,7 +18,7 @@ public interface ArticleMapper {
     })
     List<Article> getByStatus(Integer status);
 
-    @Select("SELECT `id`, `title`, `category_id`, `views`, `status`, `abstract_text`, `update_time` FROM `t_article` WHERE `id` = #{id}")
+    @Select("select id, title, category_id, views, status, abstract_text, update_time from t_article where id = #{id}")
     @Results(id="ArticleMd", value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "id", property = "contentMd", javaType = String.class, one = @One(select = "com.yeyeck.yeblog.mapper.ArticleContentMapper.getMdById")),
@@ -28,7 +28,7 @@ public interface ArticleMapper {
     })
     Article getArticleMdById(Integer id);
 
-    @Select("SELECT `id`, `title`, `category_id`, `views`, `status`, `abstract_text`, `update_time` FROM `t_article` WHERE `id` = #{id}")
+    @Select("select id, title, category_id, views, status, abstract_text, keywords, update_time from t_article where id = #{id}")
     @Results(id="ArticleHtml", value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "id", property = "contentHtml", javaType = String.class, one = @One(select = "com.yeyeck.yeblog.mapper.ArticleContentMapper.getHtmlById")),
@@ -39,7 +39,7 @@ public interface ArticleMapper {
     })
     Article getArticleHtmlById(Integer id);
 
-    @Select("SELECT `id`, `title`, `category_id`, `abstract_text`, `status` FROM `t_article` WHERE `id` = #{id}")
+    @Select("select id, title, category_id, abstract_text, status from t_article where id = #{id}")
     @Results(id="Draft", value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "id", property = "contentMd", javaType = String.class, one = @One(select = "com.yeyeck.yeblog.mapper.ArticleContentMapper.getMdById")),
@@ -49,16 +49,17 @@ public interface ArticleMapper {
     })
     Article getDraftById(Integer id);
 
-    @Insert("INSERT INTO `t_article`(`title`, `status`, `category_id`, `abstract_text`, `create_time`, `update_time`) " +
-            "VALUES(#{title}, #{status}, #{categoryId}, #{abstractText}, NOW(), NOW())")
+    @Insert("insert into t_article(title, status, category_id, abstract_text, keywords, create_time, update_time) " +
+            "values(#{title}, #{status}, #{categoryId}, #{abstractText}, #{keywords}, now(), now())")
     @SelectKey(statement = "SELECT LAST_INSERT_ID()", before = false, keyProperty = "id", resultType = int.class)
     int add(Article article);
 
-    @Update("UPDATE `t_article` SET `title` = #{title}, `abstract_text` = #{abstractText}, `category_id` = #{categoryId}, `update_time` = NOW() WHERE `id` = #{id}")
+    @Update("update t_article set title = #{title}, abstract_text = #{abstractText}, keywords = #{keywords}, category_id = #{categoryId}, update_time = now() " +
+            "where id = #{id}")
     int updateArticle(Article article);
 
-    @Select("SELECT `id`, `title`, `views`, `abstract_text`, `update_time`, `create_time` " +
-            "FROM `t_article` WHERE `status` = 1 AND ${filterName} = #{filterValue} ORDER BY ${orderParam} ${orderType} LIMIT #{start}, #{countPerPage}")
+    @Select("select id, title, views, abstract_text, update_time, create_time " +
+            "from t_article where status = 1 AND ${filterName} = #{filterValue} order by ${orderParam} ${orderType} limit #{start}, #{countPerPage}")
     @Results(id="abstractArticle", value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "id", property = "countComments", javaType = Integer.class, one = @One(select = "com.yeyeck.yeblog.mapper.CommentMapper.countCommentsByArticleId")),
@@ -67,30 +68,30 @@ public interface ArticleMapper {
     List<Article> selectArticlesForPage(Page<Article> page);
 
 
-    @Select("SELECT `id`, `title`, `views`, `category_id`, `create_time`, `update_time`" +
-            "FROM `t_article` WHERE `status` = 0 ORDER BY ${orderParam} ${orderType} LIMIT #{start}, #{countPerPage}")
+    @Select("select id, title, views, category_id, create_time, update_time" +
+            "from t_article where status = 0 ORDER BY ${orderParam} ${orderType} limit #{start}, #{countPerPage}")
     @Results(value = {
             @Result(column = "id", property = "countComments", javaType = Integer.class, one = @One(select = "com.yeyeck.yeblog.mapper.CommentMapper.countCommentsByArticleId")),
             @Result(column = "id", property = "labels", javaType = List.class, many = @Many(select = "com.yeyeck.yeblog.mapper.LabelMapper.getByArticleId"))
     })
     List<Article> selectDraftsForPage(Page<Article> page);
 
-    @Update("UPDATE `t_article` SET `status` = #{status}, `update_time` = NOW() WHERE `id` = #{id}")
+    @Update("update t_article set status = #{status}, update_time = now() where id = #{id}")
     int updateStatus(Integer id, Integer status);
 
-    @Select("SELECT COUNT(`id`) FROM `t_article` WHERE `status` = #{statues}")
+    @Select("select count(id) from t_article where status = #{statues}")
     int countByStatus(Integer status);
 
-    @Select("SELECT COUNT(`id`) FROM `t_article` WHERE `status` = 1 AND ${filterName} = #{filterValue}")
+    @Select("select count(id) from t_article WHERE status = 1 and ${filterName} = #{filterValue}")
     int countByFilter(String filterName,  Object filterValue);
 
-    @Delete("DELETE FROM `t_article` WHERE `id` = #{id}")
+    @Delete("delete from t_article WHERE id = #{id}")
     int deleteById(Integer id);
-    @Update("UPDATE `t_article` SET `views` = `views` + #{views} WHERE `id` = #{id}")
+    @Update("update t_article SET views = views + #{views} where id = #{id}")
     int addViews(Integer id, Integer views);
 
     @Insert("<script>" +
-            "INSERT INTO `t_article_label`(`article_id`, `label_id`) VALUES " +
+            "insert into t_article_label(article_id, label_id) values " +
             "<foreach collection='labelIds' item='labelId' index='index' separator=','>" +
             "(#{articleId}, #{labelId})" +
             "</foreach>" +
@@ -98,7 +99,7 @@ public interface ArticleMapper {
     int addLabels(Integer articleId, List<Integer> labelIds);
 
     @Delete("<script>" +
-            "DELETE FROM `t_article_label` WHERE (`article_id`, `label_id`) IN (" +
+            "deleter from t_article_label where (article_id, label_id) in (" +
             "<foreach collection='labelIds' item='labelId' index='index' separator=','>" +
             "(#{articleId}, #{labelId})" +
             "</foreach>" +
@@ -106,32 +107,32 @@ public interface ArticleMapper {
             "</script>")
     int removeLabels(Integer articleId, List<Integer> labelIds);
 
-    @Select("SELECT `label_id` FROM `t_article_label` WHERE `article_id` = #{articleId}")
+    @Select("select label_id from t_article_label where article_id = #{articleId}")
     @ResultType(List.class)
     List<Integer> getLabelIds(Integer articleId);
 
-    @Delete("DELETE FROM `t_article_label` WHERE `article_id` = #{articleId}")
+    @Delete("delete from t_article_label where article_id = #{articleId}")
     int removeLabelsByArticleId(Integer articleId);
 
-    @Update("UPDATE `t_article` SET `category_id` = #{categoryId} WHERE `id` = #{articleId}")
+    @Update("update t_article set category_id = #{categoryId} where id = #{articleId}")
     int updateCategory(Integer articleId, Integer categoryId);
 
-    @Select("SELECT `id`, `title` FROM `t_article` WHERE `status` = 1 ORDER BY views DESC LIMIT 0, 10")
+    @Select("select id, title from t_article where status = 1 order by views desc limit 0, 10")
     List<Article> getTop10();
 
-    @Select("SELECT COALESCE(SUM(`views`), 0) FROM `t_article`")
+    @Select("select coalesce(sum(views), 0) from t_article")
     int sumViews();
 
-    @Update("UPDATE `t_article` SET `category_id` = NULL WHERE `category_id` = #{categoryId}")
+    @Update("update t_article set category_id = NULL where category_id = #{categoryId}")
     void setCategoryToNull(Integer categoryId);
 
 
-    @Select("SELECT `id`, `title` FROM `t_article` WHERE `id` < #{id} AND `status` = 1 ORDER BY `id` LIMIT 0, 1")
+    @Select("select id, title from t_article where id < #{id} and status = 1 order by id limit 0, 1")
     Article previous(Integer id);
 
-    @Select("SELECT `id`, `title` FROM `t_article` WHERE `id` > #{id} AND `status` = 1  ORDER BY `id` LIMIT 0, 1")
+    @Select("select id, title from t_article where id > #{id} AND status = 1  order by id limit 0, 1")
     Article next(Integer id);
 
-    @Select("SELECT `title` FROM `t_article` WHERE `id` = #{id}")
+    @Select("select title from t_article where id = #{id}")
     String getTitleById(@Param("id") Integer id);
 }
