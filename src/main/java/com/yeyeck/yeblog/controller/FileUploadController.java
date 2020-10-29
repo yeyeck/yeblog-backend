@@ -37,7 +37,8 @@ public class FileUploadController {
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
         Resource file = storageService.loadAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                "attachment; filename=\"" + file.getFilename() + "\"")
+                .header(HttpHeaders.CACHE_CONTROL, "max-age=86400").body(file);
     }
 
     @PostMapping("header")
@@ -60,7 +61,8 @@ public class FileUploadController {
     public ResponseEntity<Resource> serveHeader(@PathVariable String filename) {
         Resource file = storageService.loadHeaderAsResource(filename);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+                "attachment; filename=\"" + file.getFilename() + "\"")
+                .header(HttpHeaders.CACHE_CONTROL, "max-age=86400").body(file);
     }
 
 }
