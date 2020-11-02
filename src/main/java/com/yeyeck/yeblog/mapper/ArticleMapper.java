@@ -18,7 +18,7 @@ public interface ArticleMapper {
     })
     List<Article> getByStatus(Integer status);
 
-    @Select("select id, title, category_id, views, status, abstract_text, update_time from t_article where id = #{id}")
+    @Select("select id, title, category_id, views, status, abstract_text, keywords, update_time from t_article where id = #{id}")
     @Results(id="ArticleMd", value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "id", property = "contentMd", javaType = String.class, one = @One(select = "com.yeyeck.yeblog.mapper.ArticleContentMapper.getMdById")),
