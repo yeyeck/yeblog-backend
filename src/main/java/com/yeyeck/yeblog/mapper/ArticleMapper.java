@@ -99,7 +99,7 @@ public interface ArticleMapper {
     int addLabels(Integer articleId, List<Integer> labelIds);
 
     @Delete("<script>" +
-            "deleter from t_article_label where (article_id, label_id) in (" +
+            "delete from t_article_label where (article_id, label_id) in (" +
             "<foreach collection='labelIds' item='labelId' index='index' separator=','>" +
             "(#{articleId}, #{labelId})" +
             "</foreach>" +
