@@ -9,7 +9,7 @@ import java.util.List;
 @Mapper
 public interface ArticleMapper {
 
-    @Select("select id, title, views, category_id, create_time, update_time from t_article where status = #{status}")
+    @Select("select id, title, views, category_id, create_time, update_time from t_article where status = #{status} order by create_time desc")
     @Results(value = {
             @Result(column = "id", property = "id", id = true),
             @Result(column = "id", property = "countComments", javaType = Integer.class, one = @One(select = "com.yeyeck.yeblog.mapper.CommentMapper.countCommentsByArticleId")),
@@ -127,7 +127,7 @@ public interface ArticleMapper {
     void setCategoryToNull(Integer categoryId);
 
 
-    @Select("select id, title from t_article where id < #{id} and status = 1 order by id limit 0, 1")
+    @Select("select id, title from t_article where id < #{id} and status = 1 order by id desc limit 0, 1")
     Article previous(Integer id);
 
     @Select("select id, title from t_article where id > #{id} AND status = 1  order by id limit 0, 1")
