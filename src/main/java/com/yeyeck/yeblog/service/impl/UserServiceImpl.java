@@ -2,10 +2,8 @@ package com.yeyeck.yeblog.service.impl;
 
 import com.yeyeck.yeblog.constants.YeConstants;
 import com.yeyeck.yeblog.controller.fo.AdminFo;
-import com.yeyeck.yeblog.dao.IRedisDao;
 import com.yeyeck.yeblog.exception.ParamException;
 import com.yeyeck.yeblog.mapper.UserMapper;
-import com.yeyeck.yeblog.pojo.BlogSetting;
 import com.yeyeck.yeblog.pojo.User;
 import com.yeyeck.yeblog.service.IUserService;
 import com.yeyeck.yeblog.utils.ShiroUtils;
@@ -16,15 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    private IRedisDao redisDao;
-
-    private BlogSetting blogSetting;
-
     private UserMapper userMapper;
 
-    public UserServiceImpl(IRedisDao redisDao, BlogSetting blogSetting, UserMapper userMapper) {
-        this.redisDao = redisDao;
-        this.blogSetting = blogSetting;
+    public UserServiceImpl(UserMapper userMapper) {
         this.userMapper = userMapper;
     }
 
