@@ -7,9 +7,7 @@ import com.yeyeck.yeblog.pojo.Article;
 import com.yeyeck.yeblog.pojo.Comment;
 import com.yeyeck.yeblog.service.IArticleService;
 import com.yeyeck.yeblog.service.Page;
-import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

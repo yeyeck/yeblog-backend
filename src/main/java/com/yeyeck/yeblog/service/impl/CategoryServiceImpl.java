@@ -1,5 +1,7 @@
 package com.yeyeck.yeblog.service.impl;
 
+import java.util.List;
+
 import com.yeyeck.yeblog.controller.fo.Batch;
 import com.yeyeck.yeblog.controller.fo.CategoryFo;
 import com.yeyeck.yeblog.exception.DataConflictException;
@@ -7,14 +9,11 @@ import com.yeyeck.yeblog.mapper.ArticleMapper;
 import com.yeyeck.yeblog.mapper.CategoryMapper;
 import com.yeyeck.yeblog.pojo.Category;
 import com.yeyeck.yeblog.service.ICategoryService;
-import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-
 @Service
-@Slf4j
 public class CategoryServiceImpl implements ICategoryService {
 
     private CategoryMapper categoryMapper;

@@ -1,19 +1,25 @@
 package com.yeyeck.yeblog.controller;
 
-import com.yeyeck.yeblog.constants.YeConstants;
-import com.yeyeck.yeblog.controller.fo.*;
+import com.yeyeck.yeblog.controller.fo.AdminFo;
+import com.yeyeck.yeblog.controller.fo.LoginFo;
+import com.yeyeck.yeblog.controller.fo.NicknameFo;
 import com.yeyeck.yeblog.pojo.User;
 import com.yeyeck.yeblog.service.IUserService;
 import com.yeyeck.yeblog.utils.ShiroUtils;
-import lombok.extern.slf4j.Slf4j;
+
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import lombok.extern.slf4j.Slf4j;
 
 
 @RestController

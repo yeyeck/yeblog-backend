@@ -18,7 +18,7 @@ public class ExceptionController {
 
     private static final String MSG_UNAUTHORIZED = "您的权限不够啦，请检查登录信息！";
     private static final String MSG_NOT_FOUND = "抱歉，我没有找到这个数据!";
-    private static final String MSG_FORBIDDEN = "您好像不能访问这个资源！";
+    // private static final String MSG_FORBIDDEN = "您好像不能访问这个资源！";
     private static final String MSG_BAD_REQUEST = "抱歉，请检查您的输入！";
     private static final String MSG_INTERNAL_SERVER_ERROR = "抱歉，系统开小差了！";
     private static final String MSG_INCORRECT_CREDENTIALS = "用户名或密码错误！";

@@ -11,7 +11,6 @@ import com.yeyeck.yeblog.service.IArticleService;
 import com.yeyeck.yeblog.service.ILinkService;
 import com.yeyeck.yeblog.service.ISettingsService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

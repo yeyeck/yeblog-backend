@@ -16,14 +16,13 @@ import com.yeyeck.yeblog.service.IArticleService;
 import com.yeyeck.yeblog.service.Page;
 import com.yeyeck.yeblog.utils.KeyUtils;
 import com.yeyeck.yeblog.utils.RequestUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
+
 @Service
 public class ArticleServiceImpl implements IArticleService {
 

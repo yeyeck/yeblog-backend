@@ -1,6 +1,5 @@
 package com.yeyeck.yeblog.configuration;
 
-import com.yeyeck.yeblog.mapper.SettingsMapper;
 import com.yeyeck.yeblog.pojo.EmailSettings;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,12 +10,6 @@ import java.util.Properties;
 
 @Configuration
 public class EmailConfiguration {
-
-    private SettingsMapper settingsMapper;
-
-    public EmailConfiguration(SettingsMapper settingsMapper) {
-        this.settingsMapper = settingsMapper;
-    }
 
     @Bean
     public JavaMailSender javaMailSender(EmailSettings emailSettings) {

@@ -6,7 +6,6 @@ import com.yeyeck.yeblog.controller.fo.CommentFo;
 import com.yeyeck.yeblog.pojo.Comment;
 import com.yeyeck.yeblog.service.ICommentService;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 

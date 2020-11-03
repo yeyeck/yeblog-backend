@@ -6,7 +6,6 @@ import com.yeyeck.yeblog.constants.YeConstants;
 import com.yeyeck.yeblog.controller.fo.BlogSettingFo;
 import com.yeyeck.yeblog.exception.EmailAuthenticationInvalidException;
 import com.yeyeck.yeblog.exception.ParamException;
-import com.yeyeck.yeblog.mapper.LinkMapper;
 import com.yeyeck.yeblog.mapper.SettingsMapper;
 import com.yeyeck.yeblog.pojo.BlogSetting;
 import com.yeyeck.yeblog.pojo.EmailSettings;

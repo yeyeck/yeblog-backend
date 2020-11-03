@@ -4,7 +4,6 @@ import com.yeyeck.yeblog.constants.YeConstants;
 import com.yeyeck.yeblog.dao.IEmailDao;
 import com.yeyeck.yeblog.exception.EmailServiceNotSupportException;
 import com.yeyeck.yeblog.pojo.EmailSettings;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -18,7 +17,6 @@ import javax.mail.internet.MimeMessage;
 import java.util.Map;
 
 @Component
-@Slf4j
 public class EmailDaoImpl implements IEmailDao {
 
     private JavaMailSender mailSender;
