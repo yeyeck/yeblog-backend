@@ -11,6 +11,8 @@ public class BlogSettingFo {
     @NotEmpty
     private String siteName;
 
+    private String subTitle = "";
+
     private String domain = "";
 
     private String icpRecord = "";
@@ -28,6 +30,7 @@ public class BlogSettingFo {
     public BlogSetting toBlogSetting () {
         BlogSetting blogSetting = new BlogSetting();
         blogSetting.setSiteName(this.siteName);
+        blogSetting.setSubTitle(this.subTitle);
         blogSetting.setDescription(this.description);
         blogSetting.setDomain(this.domain);
         blogSetting.setIcpRecord(this.icpRecord);

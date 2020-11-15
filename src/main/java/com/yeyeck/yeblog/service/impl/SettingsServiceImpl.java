@@ -65,6 +65,7 @@ public class SettingsServiceImpl implements ISettingsService {
             throw new RuntimeException("更新数据库失败");
         }
         this.blogSetting.setSiteName(blogSetting.getSiteName());
+        this.blogSetting.setSubTitle(blogSetting.getSubTitle());
         this.blogSetting.setDescription(blogSetting.getDescription());
         this.blogSetting.setKeywords(blogSetting.getKeywords());
         this.blogSetting.setDomain(blogSetting.getDomain());

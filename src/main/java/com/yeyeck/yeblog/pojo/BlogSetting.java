@@ -7,6 +7,8 @@ public class BlogSetting {
 
     private String siteName;
 
+    private String subTitle;
+
     private String domain;
 
     private String icpRecord;

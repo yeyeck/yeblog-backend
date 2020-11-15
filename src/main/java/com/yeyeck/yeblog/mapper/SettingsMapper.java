@@ -27,6 +27,7 @@ public interface SettingsMapper {
 
     @Select("select json_value->> '$.siteName' as site_name, " +
             "json_value->> '$.domain' as domain, " +
+            "json_value->> '$.subTitle' as sub_title, " +
             "json_value->> '$.icpRecord' as icp_record, " +
             "json_value->> '$.icpRecordUrl' as icp_record_url, " +
             "json_value->> '$.psRecord' as ps_record, " +
