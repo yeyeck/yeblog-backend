@@ -22,9 +22,10 @@ DROP TABLE IF EXISTS `t_article`;
 
 CREATE TABLE `t_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` int(11) NOT NULL DEFAULT '1',
+  `category_id` int(11) DEFAULT NULL,
   `title` varchar(200) COLLATE utf8mb4_bin NOT NULL,
   `abstract_text` varchar(150) COLLATE utf8mb4_bin NOT NULL,
+  `keywords` varchar(150) COLLATE utf8mb4_bin DEFAULT NULL,
   `views` int(11) NOT NULL DEFAULT '0',
   `status` tinyint(4) NOT NULL DEFAULT '0',
   `create_time` datetime NOT NULL,
@@ -34,7 +35,7 @@ CREATE TABLE `t_article` (
 
 /*Data for the table `t_article` */
 
-insert  into `t_article`(`id`,`author_id`,`title`,`abstract_text`,`views`,`status`,`create_time`,`update_time`) values (1,1,'Hello, YeBlog','这是一篇 sample',0,1,'2020-09-18 13:09:55','2020-09-18 13:09:55');
+insert  into `t_article`(`id`,`category_id`,`title`,`abstract_text`,`keywords`,`views`,`status`,`create_time`,`update_time`) values (1,NULL,'Hello, YeBlog','这是一篇 sample','',0,1,'2020-11-15 16:54:05','2020-11-15 16:54:05');
 
 /*Table structure for table `t_article_comment` */
 
@@ -42,31 +43,21 @@ DROP TABLE IF EXISTS `t_article_comment`;
 
 CREATE TABLE `t_article_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` int(11) NOT NULL COMMENT '所属user id',
   `article_id` int(11) NOT NULL COMMENT '所属 article',
-  `content` varchar(300) COLLATE utf8mb4_bin NOT NULL,
-  `create_time` datetime NOT NULL,
+  `author` varchar(20) COLLATE utf8mb4_bin NOT NULL COMMENT '评论者昵称',
+  `parent_id` int(11) DEFAULT NULL COMMENT '层id',
+  `reply_to_id` int(11) DEFAULT NULL COMMENT '回复id',
+  `reply_to` varchar(20) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '被回复人',
+  `content` varchar(300) COLLATE utf8mb4_bin NOT NULL COMMENT '评论内容',
+  `admin` tinyint(1) NOT NULL DEFAULT '0' COMMENT '是否为博主: 1代表是',
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '审核状态: 1(已审核)/0(未审核)',
+  `email` varchar(320) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '留言人邮箱',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 /*Data for the table `t_article_comment` */
-
-/*Table structure for table `t_article_comment_reply` */
-
-DROP TABLE IF EXISTS `t_article_comment_reply`;
-
-CREATE TABLE `t_article_comment_reply` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `author_id` int(11) NOT NULL COMMENT '所属用户id',
-  `article_id` int(11) NOT NULL COMMENT '所属文章id',
-  `comment_id` int(11) NOT NULL COMMENT '父评论id',
-  `reply_to` int(11) NOT NULL COMMENT '评论用户id',
-  `content` varchar(400) COLLATE utf8mb4_bin NOT NULL COMMENT '评论内容',
-  `create_time` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
-
-/*Data for the table `t_article_comment_reply` */
 
 /*Table structure for table `t_article_content` */
 
@@ -95,7 +86,19 @@ CREATE TABLE `t_article_label` (
 
 /*Data for the table `t_article_label` */
 
-insert  into `t_article_label`(`article_id`,`label_id`) values (1,1);
+/*Table structure for table `t_category` */
+
+DROP TABLE IF EXISTS `t_category`;
+
+CREATE TABLE `t_category` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) COLLATE utf8mb4_bin NOT NULL,
+  `create_time` date NOT NULL,
+  `update_time` date NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+/*Data for the table `t_category` */
 
 /*Table structure for table `t_label` */
 
@@ -107,11 +110,27 @@ CREATE TABLE `t_label` (
   `create_time` date NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `NAME` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 /*Data for the table `t_label` */
 
-insert  into `t_label`(`id`,`name`,`create_time`) values (1,'YeBlog','2020-09-18');
+/*Table structure for table `t_link` */
+
+DROP TABLE IF EXISTS `t_link`;
+
+CREATE TABLE `t_link` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `label` varchar(20) COLLATE utf8mb4_bin NOT NULL,
+  `type` enum('footer','friend','navigation') COLLATE utf8mb4_bin NOT NULL,
+  `link` varchar(200) COLLATE utf8mb4_bin NOT NULL,
+  `new_blank` tinyint(1) NOT NULL DEFAULT '1',
+  `order_num` tinyint(4) NOT NULL,
+  `create_time` datetime NOT NULL,
+  `update_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+
+/*Data for the table `t_link` */
 
 /*Table structure for table `t_settings` */
 
@@ -126,7 +145,7 @@ CREATE TABLE `t_settings` (
 
 /*Data for the table `t_settings` */
 
-insert  into `t_settings`(`id`,`json_value`,`update_time`) values (1,'{\"domain\": \"\", \"record\": \"\", \"keywords\": \"JAVA, VUE, SpringBoot, 前后端分离\", \"siteName\": \"YeBlog\", \"recordUrl\": \"\", \"description\": \"YeBlog————一个简单轻量的个人博客\"}','2020-08-27 06:35:34'),(3,'{\"host\": \"\", \"opened\": false, \"password\": \"\", \"username\": \"\"}','2020-07-17 07:02:25');
+insert  into `t_settings`(`id`,`json_value`,`update_time`) values (1,'{\"domain\": \"\", \"keywords\": \"JAVA, VUE, SpringBoot, 前后端分离\", \"psRecord\": \"\", \"siteName\": \"YeBlog\", \"subTitle\": \"个人博客\", \"icpRecord\": \"\", \"description\": \"YeBlog————一个简单轻量的个人博客\", \"psRecordUrl\": \"\", \"icpRecordUrl\": \"\"}','2020-08-27 06:35:34'),(3,'{\"host\": \"\", \"opened\": false, \"password\": \"\", \"username\": \"\"}','2020-07-17 07:02:25');
 
 /*Table structure for table `t_user` */
 
@@ -138,7 +157,6 @@ CREATE TABLE `t_user` (
   `nickname` varchar(32) COLLATE utf8mb4_bin DEFAULT NULL,
   `password` varchar(32) COLLATE utf8mb4_bin NOT NULL,
   `salt` varchar(32) COLLATE utf8mb4_bin NOT NULL,
-  `header` varchar(130) COLLATE utf8mb4_bin DEFAULT '/api/file/header/default-header.png',
   `role` enum('admin','author','member') COLLATE utf8mb4_bin NOT NULL,
   `create_time` date NOT NULL,
   `update_time` date NOT NULL,
@@ -148,7 +166,7 @@ CREATE TABLE `t_user` (
 
 /*Data for the table `t_user` */
 
-insert  into `t_user`(`id`,`username`,`nickname`,`password`,`salt`,`header`,`role`,`create_time`,`update_time`) values (1,'Admin','Admin','ddba1766cf73a08904b96beac66c2022','39cf8b89afd2430388f9f07603c98a6e',NULL,'admin','2020-09-18','2020-09-18');
+insert  into `t_user`(`id`,`username`,`nickname`,`password`,`salt`,`role`,`create_time`,`update_time`) values (1,'Admin','Admin','1c76569fbdadeb7c8dab65f63689f780','06e99747674d4c4e9af14db0a8e66d5b','admin','2020-11-15','2020-11-15');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
