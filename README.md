@@ -2,6 +2,22 @@
 YeBlog 后端，集成 Shiro,Redis, Email, Mybatis  
 博客前台：[yeblog-web](https://github.com/yeyeck/yeblog-web)  
 后台管理：[yeblog-admin](https://github.com/yeyeck/yeblog-admin)
+在线实例：[www.yeyeck.com](https://www.yeyeck.com)
+# 目前实现的功能
+- [x] 博客功能
+   - [x] 支持 Markdown 编辑
+   - [x] 博主编辑、发布和删除文章
+   - [x] 文章评论，审核功能
+   - [x] 编辑缓存功能，意外退出会保留编辑内容
+- [ ] 邮箱功能
+   - [x] 博主开启/关闭邮箱功能
+   - [ ] 评论回复邮件提醒
+- [x] SEO相关
+   - [x] SSR支持
+   - [x] 自定义站点名称、副标题、关键字和首页描述
+   - [x] 文章详情页支持关键字编辑，标题以“文章标题——站点名称”的结构，描述为文章摘要
+   - [x] 导航栏支持顶部导航和底部导航
+   - [x] 添加友链功能
 
 ## 1. 配置开发环境， 在虚拟机上用 docker 安装 redis 和 mysql
 ### 1.1 安装 mysql
