@@ -1,7 +1,7 @@
 # yeblog-backend
 YeBlog 后端，集成 Shiro,Redis, Email, Mybatis  
 博客前台：[yeblog-web](https://github.com/yeyeck/yeblog-web)  
-后台管理：[yeblog-admin](https://github.com/yeyeck/yeblog-admin)
+后台管理：[yeblog-admin](https://github.com/yeyeck/yeblog-admin)  
 在线实例：[www.yeyeck.com](https://www.yeyeck.com)
 # 目前实现的功能
 - [x] 博客功能
