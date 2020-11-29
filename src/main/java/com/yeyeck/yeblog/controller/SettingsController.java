@@ -42,14 +42,12 @@ public class SettingsController {
         BlogSetting blogSetting = settingsService.getBlogSetting();
         List<Link> navigations = linkService.getLinkByType(LinkType.NAVIGATION.name().toLowerCase());
         List<Link> footers = linkService.getLinkByType(LinkType.FOOTER.name().toLowerCase());
-        List<Link> friends = linkService.getLinkByType(LinkType.FRIEND.name().toLowerCase());
         List<Article> top10 = articleService.getTop10();
         ArticleStatistics statistics = articleService.getStatistics();
         MainVo mainVo = new MainVo();
         mainVo.setBlogSetting(blogSetting);
         mainVo.setFooters(footers);
         mainVo.setNavigations(navigations);
-        mainVo.setFriends(friends);
         mainVo.setTop10(top10);
         mainVo.setStatistics(statistics);
         return mainVo;
@@ -81,7 +79,6 @@ public class SettingsController {
     }
 
     @GetMapping("/links/{type}")
-    @RequiresAuthentication
     public List<Link> getLinksByType(@PathVariable("type") String type) {
         return linkService.getLinkByType(type);
     }

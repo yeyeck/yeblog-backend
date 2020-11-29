@@ -17,8 +17,6 @@ public class MainVo {
 
     private List<Link> footers;
 
-    private List<Link> friends;
-
     private List<Article> top10;
 
     private ArticleStatistics statistics;
